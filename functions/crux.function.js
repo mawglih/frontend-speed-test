@@ -26,4 +26,5 @@ module.exports = async function (origin) {
   const json = await CrUXApiUtil.query(requestData, API_KEY);
   console.log('CrUX API response:', json);
   console.log('first input delay', json.record.metrics.first_input_delay);
+  return json;
 };
