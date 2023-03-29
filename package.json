@@ -1,0 +1,27 @@
+{
+  "name": "pwa-server-health",
+  "version": "1.0.0",
+  "description": "Crux and lighthouse node app for pwa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/1800Flowers/apps/POC/pwa-server-health.git"
+  },
+  "author": "Oleg Markoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/1800Flowers/apps/POC/pwa-server-health/issues"
+  },
+  "homepage": "https://gitlab.com/1800Flowers/apps/POC/pwa-server-health#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "0.0.1-security",
+    "jest": "^29.5.0",
+    "node-fetch": "^3.3.1"
+  }
+}
