@@ -11,6 +11,7 @@ exports.getData = async function(url) {
     } 
   } else {
     try {
+      console.log('url in service', url);
       let result = await getData(url);
       return result;
     } catch(e) {

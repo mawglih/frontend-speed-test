@@ -1,4 +1,13 @@
 .App {
   text-align: center;
 }
-
+.containerV {
+  display: flex;
+  padding: 20px;
+  margin-left: 50px;
+  align-items: center;
+  justify-content: space-between;
+}
+.single {
+  padding: 10px;
+}
