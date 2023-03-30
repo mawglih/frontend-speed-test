@@ -3,7 +3,7 @@ const Single = ({
   name,
 }) => {
   // const {histogram, percentile } = data;
-  console.log('Single histogram', data);
+  // console.log('Single histogram', data);
   return (
     <div className="single">
       <h2>{name}</h2>

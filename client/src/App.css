@@ -11,3 +11,38 @@
 .single {
   padding: 10px;
 }
+.inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inputForm {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.inputField {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.inputField > label {
+  font-size: small;
+  
+}
+.inputField > input {
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 1rem;
+  width: 20rem;
+}
+.submitButton {
+   display: flex;
+  flex-direction: column;
+}
+.submitButton > button {
+  background-color: blue;
+  padding: 15px 30px;
+  font-size: 1rem;
+  color: white;
+}

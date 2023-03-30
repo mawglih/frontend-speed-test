@@ -3,7 +3,7 @@ import Single from "./Single";
 const DisplayReport = ({
   data
 }) => {
-console.log('data in DisplayReports', data);
+// console.log('data in DisplayReports', data);
   return(
     <div className="containerV">
       <Single data={data?.cumulative_layout_shift} name='Cumulative Layout Shift' />
