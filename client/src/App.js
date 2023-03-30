@@ -5,14 +5,12 @@ import SelectDestination from './components/SelectDestination';
 import Charts from './components/Charts';
 import './App.css';
 import Table from './components/Table';
-import response from './components/data.json';
 
 function App() {
   const [data, setData] = useState({});
   const [destUrl, setDestUrl] = useState('')
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const [json, setJson] = useState({});
   console.log('The data', data);
   const handleCrUXData = async (dest) => {
     console.log('dest before api', dest)
@@ -48,9 +46,7 @@ function App() {
     handleCrUXData(searchData);
   }
   // const lcp = Object.entries(arrayMetrics[5][1]?.histogram);
-  useEffect(() => {
-    setJson(response);
-  }, []);
+
   return (
     <div className="App">
       <h1>CrUX report</h1>
