@@ -6,7 +6,7 @@
             "name": "LCP-Bar",
             "chartType": "BarChart",
             "data": [
-                ["type", "distribution in %"],
+                ["type", "in %"],
                 ["fast", 40.91],
                 ["medium", 18.85],
                 ["slow", 40.24]
