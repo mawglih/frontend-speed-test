@@ -17,9 +17,9 @@ const Single = ({
             <th>End</th>
             <th>Density</th>
           </tr>
-          {data?.histogram?.map(el => {
+          {data?.histogram?.map((el,idx) => {
             return(
-              <tr>
+              <tr key={idx}>
                 <td>{el.start}</td>
                 <td>{el.end}</td>
                 <td>{el.density}</td>

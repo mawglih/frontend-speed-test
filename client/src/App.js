@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { query } from './api';
 import DisplayReport from './components/DisplayReport';
 import SelectDestination from './components/SelectDestination';
 import Charts from './components/Charts';
 import './App.css';
-import Table from './components/Table';
 
 function App() {
   const [data, setData] = useState({});
   const [destUrl, setDestUrl] = useState('')
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  console.log('The data', data);
+  const [displUrl,setDisplUrl] = useState('');
+
   const handleCrUXData = async (dest) => {
-    console.log('dest before api', dest)
     const res = await query(dest);
     console.log('all res in APP: ', res);
     if(res.status === 200) {
@@ -21,7 +20,7 @@ function App() {
       console.log('status1: ', res.status);
       setError('');
       setData(res.data.data.record.metrics);
-      console.log('data received in app', res.data.data.record.metrics);
+      setDisplUrl(dest);
       setDestUrl('');
     } else if(res.status === 220) {
       console.log('status2: ', res.status);
@@ -37,30 +36,23 @@ function App() {
     }
   }
 
-    const arrayMetrics = Object.entries(data);
-    console.log('Array of obj', arrayMetrics);
-
   const handleSearch = (searchData) => {
     console.log('serchdata in App: ', searchData);
     setDestUrl(searchData);
     handleCrUXData(searchData);
   }
-  // const lcp = Object.entries(arrayMetrics[5][1]?.histogram);
-
+ 
   return (
     <div className="App">
       <h1>CrUX report</h1>
-      <h2>Destination: {destUrl}</h2>
+      <h2>Destination: {displUrl}</h2>
       <h3>{message}</h3>
       <SelectDestination search={(searchData) => handleSearch(searchData)} />
       {data && <DisplayReport data={data} />}
       <hr />
-      {data && <Table data={arrayMetrics} />}
-      <hr />
-      {/* {data && data?.charts?.map((chartData, i) => (
-        <Charts chart={chartData} key={i}/>
-      ))} */}
-      <Charts/>
+
+      {data && <Charts data={data} dest={displUrl} />}
+      {/* <Charts/> */}
     </div>
   );
 }
