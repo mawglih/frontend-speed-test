@@ -50,9 +50,9 @@ function App() {
       <SelectDestination search={(searchData) => handleSearch(searchData)} />
       {data && <DisplayReport data={data} />}
       <hr />
-
-      {data && <Charts data={data} dest={displUrl} />}
-      {/* <Charts/> */}
+      <div className="chartsContent">
+        {data && <Charts data={data} dest={displUrl} />}
+      </div>
     </div>
   );
 }
