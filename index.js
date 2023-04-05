@@ -3,6 +3,7 @@ const app = express();
 const port = 9000;
 const cors = require('cors');
 const router = require(('./routes/crux.route'));
+const router2 = require(('./routes/lh.route'));
 
 const fetch = (...args) =>
 	import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -42,6 +43,7 @@ const data = async function () {
 data();
 
 app.use('/getcrux', router);
+app.use('/getlh', router2);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

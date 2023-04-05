@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { query } from './api';
+import { query, query2 } from './api';
 import DisplayReport from './components/DisplayReport';
 import SelectDestination from './components/SelectDestination';
 import Charts from './components/Charts';
 import './App.css';
+
+const END_18F = 'https://www.1800flowers.com';
 
 function App() {
   const [data, setData] = useState({});
@@ -11,6 +13,11 @@ function App() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [displUrl,setDisplUrl] = useState('');
+
+  const handleLHData = async () => {
+    const res = await query2(END_18F);
+    console.log('LH resolved', res);
+  }
 
   const handleCrUXData = async (dest) => {
     const res = await query(dest);
@@ -44,6 +51,10 @@ function App() {
  
   return (
     <div className="App">
+      <h1>LH Report</h1>
+      <div>
+        <button onClick={handleLHData}>Get LH report</button>
+      </div>
       <h1>CrUX report</h1>
       <h2>Destination: {displUrl}</h2>
       <h3>{message}</h3>
