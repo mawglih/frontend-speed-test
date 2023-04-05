@@ -4,6 +4,7 @@ import DisplayReport from './components/DisplayReport';
 import SelectDestination from './components/SelectDestination';
 import Charts from './components/Charts';
 import './App.css';
+import LhReport from './components/LhReport';
 
 const END_18F = 'https://www.1800flowers.com';
 
@@ -13,11 +14,12 @@ function App() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [displUrl,setDisplUrl] = useState('');
-
-  const handleLHData = async () => {
-    const res = await query2(END_18F);
-    console.log('LH resolved', res);
-  }
+  const [lhURL, setLhURL] = useState('');
+  const [lhMessage, setLhMessage] = useState('');
+  const [lhError, setLhError] = useState('');
+  const [lhData, setLhData] = useState([]);
+  const [lhPerformanceScore, setLhPerformanceScore] = useState();
+  const [lhPerformance, setLhPerformance] = useState([]);
 
   const handleCrUXData = async (dest) => {
     const res = await query(dest);
@@ -42,19 +44,46 @@ function App() {
       setDestUrl('');
     }
   }
+  const handleLhData = async (dest) => {
+    const res = await query2(dest);
+    if(res.status === 200) {
+      console.log('res in app', res);
+      console.log('data in lh 200', res.data.data);
+      setLhMessage(res.data.message);
+      setLhError('');
+      setLhData(res.data.data.audits);
+      setLhPerformanceScore(Math.round(res.data.data.categories.performance.score * 100));
+      setLhPerformance(res.data.data.categories.performance.auditRefs);
+    } else  {
+      setLhError(res);
+      setLhMessage(res.message);
+      console.log(res);
+      setLhURL('');
+    }
+  }
 
   const handleSearch = (searchData) => {
     console.log('serchdata in App: ', searchData);
     setDestUrl(searchData);
     handleCrUXData(searchData);
   }
+  const handleLHSearch = (searchData) => {
+    console.log('serchdata in App: ', searchData);
+    setLhURL(searchData);
+    handleLhData(searchData);
+  }
  
   return (
     <div className="App">
       <h1>LH Report</h1>
-      <div>
+      <h2>Destination: {lhURL}</h2>
+      <h3>{lhMessage}</h3>
+      <SelectDestination search={(searchData) => handleLHSearch(searchData)}/>
+      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} /> }
+      {/* <div>
         <button onClick={handleLHData}>Get LH report</button>
-      </div>
+      </div> */}
+      <hr />
       <h1>CrUX report</h1>
       <h2>Destination: {displUrl}</h2>
       <h3>{message}</h3>

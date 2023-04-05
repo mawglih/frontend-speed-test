@@ -53,7 +53,7 @@ const Charts = ({
           }}
           chartType="ComboChart"
           height="400px"
-          width="50%"
+          width="70%"
         />
     ))  
 
