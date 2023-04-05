@@ -4,7 +4,8 @@ const chromeLauncher = require("chrome-launcher");
 const lhOptions = {
   extends: "lighthouse:default",
   settings: {
-    onlyCategories: ["performance"],
+    // onlyAudits: ['first-meaningful-paint','speed-index', 'interactive','estimated-input-latency','total-blocking-time', 'time-to-first-byte'],
+    onlyCategories: ['performance'],
     emulatedFormFactor: "mobile",
     output: "json"
   }
@@ -22,7 +23,6 @@ function launchLighthouse(optionSet, opts, results,url) {
         console.error("lighthouse", e);
       }
       if (results) {
-        console.log('results after success', results.lhr);
         return results.lhr
       }
       chrome.kill();
