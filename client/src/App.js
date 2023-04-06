@@ -20,6 +20,7 @@ function App() {
   const [lhData, setLhData] = useState([]);
   const [lhPerformanceScore, setLhPerformanceScore] = useState();
   const [lhPerformance, setLhPerformance] = useState([]);
+  const [lhMetrics, setLHMetrics] = useState({});
 
   const handleCrUXData = async (dest) => {
     const res = await query(dest);
@@ -54,6 +55,7 @@ function App() {
       setLhData(res.data.data.audits);
       setLhPerformanceScore(Math.round(res.data.data.categories.performance.score * 100));
       setLhPerformance(res.data.data.categories.performance.auditRefs);
+      setLHMetrics(res.data.data.audits.metrics.details.items[0]);
     } else  {
       setLhError(res);
       setLhMessage(res.message);
@@ -62,6 +64,7 @@ function App() {
     }
   }
 
+  console.log('lh metrics details', lhMetrics);
   const handleSearch = (searchData) => {
     console.log('serchdata in App: ', searchData);
     setDestUrl(searchData);
@@ -79,7 +82,7 @@ function App() {
       <h2>Destination: {lhURL}</h2>
       <h3>{lhMessage}</h3>
       <SelectDestination search={(searchData) => handleLHSearch(searchData)}/>
-      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} dest={lhURL}/> }
+      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} dest={lhURL} metrics={lhMetrics} s/> }
       {/* <div>
         <button onClick={handleLHData}>Get LH report</button>
       </div> */}
