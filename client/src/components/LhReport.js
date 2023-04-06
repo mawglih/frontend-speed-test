@@ -4,10 +4,12 @@ const LhReport = ({
   data,
   score,
   dest,
+  metrics,
 }) => {
   console.log('data in display lh', data);
   console.log('arr data in lh', Object.values(data));
   const [lhData, setLHData] = useState([]);
+  const [metricsData, setMetricsData] = useState([]);
 
   const constructLHData = () => {
     if(data) {
@@ -16,12 +18,22 @@ const LhReport = ({
       setLHData(arr);
     }
   }
+    const constructMetricsData = () => {
+    if(metrics) {
+      const arr = Object.entries(metrics);
+      console.log('array is ready', arr);
+      setMetricsData(arr.slice(0,7));
+    }
+  }
 
   useEffect(() => {
     constructLHData();
-  }, [data]);
+    constructMetricsData()
+  }, [data, metrics]);
 
   console.log('lhdata is finally', lhData);
+  console.log('metrics in LH finally', metricsData);
+
   return (
     <div className="container">
       <div className="content">
@@ -49,6 +61,25 @@ const LhReport = ({
             })}
         </table>
       </div>}
+      {metricsData.length > 0 && (
+      <div className="content">
+        <h3>Metrics and values</h3>
+        <table>
+          <tr>
+            <th>Metric name</th>
+            <th>Metric value</th>
+          </tr>
+            {metricsData.map((item) => {
+              return(
+                <tr>
+                  <td>{item[0]}</td>
+                  <td>{item[1]}</td>
+                </tr>
+              )
+            })}         
+        </table>
+      </div>
+    )}
     </div>
   )
 
