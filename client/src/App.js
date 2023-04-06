@@ -79,7 +79,7 @@ function App() {
       <h2>Destination: {lhURL}</h2>
       <h3>{lhMessage}</h3>
       <SelectDestination search={(searchData) => handleLHSearch(searchData)}/>
-      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} /> }
+      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} dest={lhURL}/> }
       {/* <div>
         <button onClick={handleLHData}>Get LH report</button>
       </div> */}
