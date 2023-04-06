@@ -1,4 +1,6 @@
 const lighthouse = require("lighthouse");
+// const lighthouse = (...args) =>	import('lighthouse').then(({default: lighthouse}) => lighthouse(...args));
+// import lighthouse from 'lighthouse';
 const chromeLauncher = require("chrome-launcher");
 
 const lhOptions = {
