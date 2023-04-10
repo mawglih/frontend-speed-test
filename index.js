@@ -4,6 +4,8 @@ const port = 9000;
 const cors = require('cors');
 const router = require(('./routes/crux.route'));
 const router2 = require(('./routes/lh.route'));
+const router3 = require('./routes/psi.route');
+const psi = require('./functions/psi.function');
 
 const fetch = (...args) =>
 	import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -44,6 +46,9 @@ data();
 
 app.use('/getcrux', router);
 app.use('/getlh', router2);
+app.use('/getpsi', router3);
+
+psi(END_18F);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
