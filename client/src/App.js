@@ -64,7 +64,7 @@ function App() {
     }
   }
 
-  console.log('lh metrics details', lhMetrics);
+  
   const handleSearch = (searchData) => {
     console.log('serchdata in App: ', searchData);
     setDestUrl(searchData);
@@ -75,7 +75,8 @@ function App() {
     setLhURL(searchData);
     handleLhData(searchData);
   }
- 
+  console.log('++++++++++lh metrics details++++++++++++++', lhMetrics);
+
   return (
     <div className="App">
       <h1>LH Report</h1>

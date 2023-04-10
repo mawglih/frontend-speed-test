@@ -22,7 +22,7 @@ const LhReport = ({
     if(metrics) {
       const arr = Object.entries(metrics);
       console.log('array is ready', arr);
-      setMetricsData(arr.slice(0,7));
+      setMetricsData(arr.slice(0,10));
     }
   }
 
