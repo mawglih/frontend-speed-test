@@ -1,6 +1,5 @@
 const { API_KEY, API_ENDPOINT, END_18F, END_HD } = require('../const');
-const fetch = (...args) =>
-	import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => 	import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const origin = process.argv[2] ? process.argv[2] : END_18F;
 
