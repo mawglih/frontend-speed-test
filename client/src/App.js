@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { query, query2 } from './api';
+import { query, query2, query3 } from './api';
 import DisplayReport from './components/DisplayReport';
 import SelectDestination from './components/SelectDestination';
 import Charts from './components/Charts';
 import './App.css';
 import LhReport from './components/LhReport';
+import PsiReport from './components/PsiReport';
 
 const END_18F = 'https://www.1800flowers.com';
 
@@ -21,6 +22,10 @@ function App() {
   const [lhPerformanceScore, setLhPerformanceScore] = useState();
   const [lhPerformance, setLhPerformance] = useState([]);
   const [lhMetrics, setLHMetrics] = useState({});
+  const [psiURL, setPsiURL] = useState('');
+  const [psiMessage, setPsiMessage] = useState('');
+  const [psiData, setPsiData] = useState([]);
+  const [psiError, setPsiError] = useState('');
 
   const handleCrUXData = async (dest) => {
     const res = await query(dest);
@@ -64,18 +69,53 @@ function App() {
     }
   }
 
+  const METRICS = ['largest-contentful-paint', 'cumulative-layout-shift', 'total-blocking-time', 
+    'first-contentful-paint', 'dom-size', 'first-meaningful-paint', 'interactive'];
+
+  const getMetrics = data => {
+    let arr = [];
+    for (let i in data) {
+      if (METRICS.includes(i.id)) {
+        arr.push({[i.id]: i});
+      }
+    }
+    console.log('arr in app', arr);
+    return arr;
+  }
+
+    const handlePsiData = async (dest) => {
+    const res = await query3(dest);
+    if(res.status === 200) {
+      console.log('res in app for psi', res);
+      console.log('data in psi 200', res.data.data);
+     setPsiMessage(res.data.message);
+     setPsiError('');
+     setPsiData(res.data.data);
+  
+    } else  {
+     setPsiError(res);
+     setPsiMessage(res.message);
+      console.log(res);
+     setPsiURL('');
+    }
+  }
+
   
   const handleSearch = (searchData) => {
-    console.log('serchdata in App: ', searchData);
+    console.log('CrUXdata in App: ', searchData);
     setDestUrl(searchData);
     handleCrUXData(searchData);
   }
   const handleLHSearch = (searchData) => {
-    console.log('serchdata in App: ', searchData);
+    console.log('LHdata in App: ', searchData);
     setLhURL(searchData);
     handleLhData(searchData);
   }
-  console.log('++++++++++lh metrics details++++++++++++++', lhMetrics);
+ 
+  const handlePSISearch = (searchData) => {
+    setPsiURL(searchData);
+    handlePsiData(searchData);
+  }
 
   return (
     <div className="App">
@@ -83,7 +123,7 @@ function App() {
       <h2>Destination: {lhURL}</h2>
       <h3>{lhMessage}</h3>
       <SelectDestination search={(searchData) => handleLHSearch(searchData)}/>
-      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} dest={lhURL} metrics={lhMetrics} s/> }
+      {lhData && <LhReport data={lhData} perf={lhPerformance} score={lhPerformanceScore} dest={lhURL} metrics={lhMetrics} /> }
       {/* <div>
         <button onClick={handleLHData}>Get LH report</button>
       </div> */}
@@ -97,6 +137,13 @@ function App() {
       <div className="chartsContent">
         {data && <Charts data={data} dest={displUrl} />}
       </div>
+      <hr/>
+           <h1>PSI Report</h1>
+      <h2>Destination: {psiURL}</h2>
+      <h3>{psiMessage}</h3>
+      <SelectDestination search={(searchData) => handlePSISearch(searchData)}/>
+      {psiData && <PsiReport data={psiData} dest={psiURL}/> }
+      
     </div>
   );
 }

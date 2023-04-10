@@ -35,7 +35,6 @@ function launchLighthouse(optionSet, opts, results,url) {
 
 
 module.exports = async function runLighthouseAnalysis(destUrl) {
-  console.log('url: ', destUrl)
   let results;
   const opts = {
     chromeFlags: ["--no-sandbox", "--headless"]

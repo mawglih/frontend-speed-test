@@ -42,13 +42,12 @@ const data = async function () {
   // console.log('first input delay', json.record.metrics.first_input_delay);
 };
 
-data();
 
 app.use('/getcrux', router);
 app.use('/getlh', router2);
 app.use('/getpsi', router3);
 
-psi(END_18F);
+// psi(END_18F);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
