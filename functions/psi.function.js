@@ -6,11 +6,14 @@ module.exports = async function run(url) {
   const response = await fetch(psi_url);
   const json = await response.json();
   const lighthouse = await json.lighthouseResult.audits;
-  const lighthouseMetrics =  await setMetricsObj(lighthouse);
-  return lighthouseMetrics;
+  const performance =  await json.lighthouseResult.categories;
+  const lighthouseMetricsFiltered =  await setMetricsObj(lighthouse,performance);
+  // console.log('performance', performance);
+  return lighthouseMetricsFiltered;
+  // return lighthouse;
 }
 
-function setMetricsObj(data) {
+function setMetricsObj(data, score) {
   const obj =   {
     'First Contentful Paint': data['first-contentful-paint'],
     'Speed Index': data['speed-index'],
@@ -20,7 +23,8 @@ function setMetricsObj(data) {
     'Cumulative Layout Shift': data['cumulative-layout-shift'],
     'Duplicated JavaScript': data['duplicated-javascript'],
     'Largest Contentful Paint': data['largest-contentful-paint'],
-    'Total Blocking Time': data['total-blocking-time']
+    'Total Blocking Time': data['total-blocking-time'],
+    'Performance': score['performance']
   };
   return obj;
 }

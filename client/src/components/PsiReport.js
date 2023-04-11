@@ -22,27 +22,27 @@ const PSIReport = ({
   return (
     <div className="container">
       <div className="content">
-        {score && <h2>{dest} score is: {score}</h2>}
+        {PSIData.length > 0 && <h2>{dest} score is: {PSIData.filter(item => item.id === 'performance').map(it=> it.score) * 100}</h2>}
       </div>
       {PSIData.length > 0 && <div className="content">
         <table>
           <tr>
-            <th>Id</th>
             <th>Title</th>
-            <th>Description</th>
-            <th>Value (ms)</th>
+            <th>Numeric Unit</th>
+            <th>Value</th>
             <th>Score</th>
             </tr>
             {PSIData.map((item) => {
-              return(
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.title}</td>
-                  <td>{item.description}</td>
-                  <td>{item.numericValue}</td>
-                  <td>{item.score}</td>
-                </tr>
-              )
+              if(item.id !== 'performance') {
+                return(
+                  <tr key={item.id}>
+                    <td>{item.title}</td>
+                    <td>{item.numericUnit}</td>
+                    <td>{item.numericValue}</td>
+                    <td>{item.score}</td>
+                  </tr>
+                )
+              }
             })}
         </table>
       </div>}
