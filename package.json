@@ -1,5 +1,5 @@
 {
-  "name": "pwa-server-health",
+  "name": "frontend-speed-test",
   "version": "1.0.0",
   "description": "Crux and lighthouse node app for pwa",
   "main": "index.js",
